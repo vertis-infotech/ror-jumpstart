@@ -71,15 +71,15 @@ and save someone else the pain!
 What's in the app?
 ------------------
 This is based on real-world requirements as follows:
-1. An attendance system to log attendance of workers from various sites.
-2. Supervisors at various customer sites can log attendance (only for
+* An attendance system to log attendance of workers from various sites.
+* Supervisors at various customer sites can log attendance (only for
 their "assigned" sites).
-3. A Customer can log in to view attendance for their sites. They must
+* A Customer can log in to view attendance for their sites. They must
 not be able to view/edit any other data.
-4. Any Staff member should be able to create and manage Supervisor
+* Any Staff member should be able to create and manage Supervisor
 logins.
-5. The "Staff" logins are charged a subscription on a per-login basis. 
-Only "Super Admin" should be able to manage "Staff" logins.
+* The "Staff" logins are charged a subscription on a per-login basis. 
+* Only "Super Admin" should be able to manage "Staff" logins.
 
 Let's do it then!
 =================
