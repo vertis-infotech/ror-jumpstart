@@ -125,6 +125,9 @@ Check out:
 
 3. Establish relationships as per the ER diagram:
 -------------------------------------------------
+
+See ERDiagram.jpg for what that looks like.
+
 In `user.rb`: 
 
     has_many :sites, :foreign_key => 'supervisor_id'
@@ -167,11 +170,11 @@ In `attendance.rb`:
 In `config/initializers/devise.rb` - 
     config.sign_out_via = :get
 
-In `views/layouts/application.html.erb`, just under <body> -
-    <ul class="hmenu">
-      <%= render 'devise/menu/registration_items' %>
-      <%= render 'devise/menu/login_items' %>
-    </ul>
+In `views/layouts/application.html.erb`, just under &lt;body&gt; add:
+    &lt;ul class="hmenu">
+      &lt;%= render 'devise/menu/registration_items' %>
+      &lt;%= render 'devise/menu/login_items' %>
+    &lt;/ul>
 
 5. Set up the test (seed) data
 ------------------------------
@@ -212,10 +215,15 @@ Deploying the app on Heroku:
 See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
 
 `RAILS_ENV=production bundle exec rake assets:precompile`
+
 `git init`
+
 `git add .`
+
 `git commit -m "init"`
+
 `heroku create <your_app_name> --stack cedar`
+
 `git push heroku master`
 
 
