@@ -22,10 +22,10 @@ All of the above are solved problems and numerous great solutions exist
 for each. This is especially true in the RoR world where you can readily
 map these requirements to known "gems" capturing best practices:
 
-* Devise for User login, registration, password management.
-* ActiveScaffold for CRUD and search for many business objects (a.k.a. domain objects).
-* Cancan for Access controls over domain objects.
-* Heroku for Deployment to a cloud based environment.
+* [Devise[(https://github.com/plataformatec/devise) for User login, registration, password management.
+* [ActiveScaffold](https://github.com/activescaffold/active_scaffold) for CRUD and search for many business objects (a.k.a. domain objects).
+* [Cancan](https://github.com/ryanb/cancan) for Access controls over domain objects.
+* [Heroku platform](http://www.heroku.com) and [gem](https://github.com/heroku/heroku) for easy deployment to a cloud based environment.
 
 In theory, all these components play together nicely out-of-the-box.
 In practice, you are often required to know a lot more than you could
