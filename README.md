@@ -1,4 +1,4 @@
-Get a jumpstart on that ROR app. From an ER diagram to a Heroku deployed app in &lt; 1 hr.What is this?
+From an ER diagram to a Heroku deployed app in &lt; 1 hr.
 =============
 A skeleton rails app that uses a number of gems and works 
 out-of-the-box, on your local machine and on Heroku.
@@ -56,8 +56,7 @@ this code in any fashion whatsoever.
 Where will this work "As Advertized"? 
 =====================================
 
-This is tested to work on:
---------------------------
+### This is tested to work on:
 RVM: 1.14.1
 Ruby: 1.9.3 (via rvm)
 OS: Mac OS X 10.7.4
@@ -70,7 +69,7 @@ If you git it to work in your environment, please "fork this"
 and save someone else the pain!
 
 What's in the app?
-==================
+------------------
 This is based on real-world requirements as follows:
 1. An attendance system to log attendance of workers from various sites.
 2. Supervisors at various customer sites can log attendance (only for
@@ -84,108 +83,116 @@ Only "Super Admin" should be able to manage "Staff" logins.
 
 Let's do it then!
 =================
-1. Create the skeleton app by running ./create_app.sh
 
-Add the following to config/routes.rb
-  root :to => 'home#index'
+1. Create the skeleton app by running `./create_app.sh`
+-------------------------------------------------------
 
-Delete the file public/index.html
+Add the following to `config/routes.rb`
 
-   Now start the rails server and verify that the app runs fine
-   DONT CREATE ANY DATA YET. Just make sure the UI looks ok.
+    root :to => 'home#index'
 
-   http://localhost:3000
-   http://localhost:3000/users
-   http://localhost:3000/roles
-   http://localhost:3000/customers
-   http://localhost:3000/sites
+Delete the file `public/index.html` so that this new root is used.
+
+Now start the rails server and verify that the app runs fine.
+
+    rails s
+
+Check out:
+* http://localhost:3000
+* http://localhost:3000/users
+* http://localhost:3000/roles
+* http://localhost:3000/customers
+* http://localhost:3000/sites
 
 2. Create a migration as follows and run it:
 --------------------------------------------
-cd ams
-rails g migration UsersHaveAndBelongToManyRoles
+    cd ams
+    rails g migration UsersHaveAndBelongToManyRoles
 
-class UsersHaveAndBelongToManyRoles < ActiveRecord::Migration
-  def self.up
-    create_table :roles_users, :id => false do |t|
-      t.references :role, :user
+    class UsersHaveAndBelongToManyRoles < ActiveRecord::Migration
+      def self.up
+        create_table :roles_users, :id => false do |t|
+          t.references :role, :user
+        end
+      end
+    
+      def self.down
+        drop_table :roles_users
+      end
     end
-  end
- 
-  def self.down
-    drop_table :roles_users
-  end
-end
 
-rake db:migrate
+    rake db:migrate
 
 3. Establish relationships as per the ER diagram:
 -------------------------------------------------
-In user.rb: 
-	has_many :sites, :foreign_key => 'supervisor_id'
-  has_and_belongs_to_many :roles
-  belongs_to :customer
+In `user.rb`: 
 
-def role?(role)
-    return !!self.roles.find_by_name(role)
-end
+    has_many :sites, :foreign_key => 'supervisor_id'
+    has_and_belongs_to_many :roles
+    belongs_to :customer
 
-def to_s
-  "#{first_name} #{last_name} [#{email}]"
-end
+    def role?(role)
+        return !!self.roles.find_by_name(role)
+    end
 
-In role.rb:
-  has_and_belongs_to_many :users
+    def to_s
+      "#{first_name} #{last_name} [#{email}]"
+    end
 
-def to_s
-  name
-end
+In `role.rb`:
 
-In site.rb:
-	belongs_to :customer
-	belongs_to :supervisor, :class_name => 'User'
-	has_many :attendances
+    has_and_belongs_to_many :users
 
-In customer.rb:
-	has_many :sites
-  has_many :users
+    def to_s
+      name
+    end
 
-In attendance.rb:
-	belongs_to :supervisor, :class_name => 'User'
-	belongs_to :site
-	belongs_to :customer
+In `site.rb`:
+
+    belongs_to :customer
+    belongs_to :supervisor, :class_name => 'User'
+    has_many :attendances
+
+In `customer.rb`:
+    has_many :sites
+    has_many :users
+
+In `attendance.rb`:
+    belongs_to :supervisor, :class_name => 'User'
+    belongs_to :site
+    belongs_to :customer
 
 4. Add the login/logout links:
 ------------------------------
-In config/initializers/devise.rb - 
- config.sign_out_via = :get
+In `config/initializers/devise.rb` - 
+    config.sign_out_via = :get
 
-In views/layouts/application.html.erb just under <body> -
-<ul class="hmenu">
-  <%= render 'devise/menu/registration_items' %>
-  <%= render 'devise/menu/login_items' %>
-</ul>
+In `views/layouts/application.html.erb`, just under <body> -
+    <ul class="hmenu">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </ul>
 
 5. Set up the test (seed) data
 ------------------------------
-rake db:seed
+    rake db:seed
 
 6. Add to all controllers - 
 ---------------------------
-before_filter :authenticate_user!
+    before_filter :authenticate_user!
 
 7. Add authorization as per business rules -
 -------------------------------------------- 
-Follow instructions in app/models/ability.rb, initialize() method.
+Follow instructions in `app/models/ability.rb`, `initialize()` method.
 The authorization rules are clearly described in the Ability class.
 For more details on how to define such rules, consult cancan
 documentation.
 
-Also add the following to ApplicationController - 
+Also add the following to `ApplicationController` - 
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :notice => exception.message
-  end
+    rescue_from CanCan::AccessDenied do |exception|
+      redirect_to root_url, :notice => exception.message
+    end
 
 8. That's it! Now test the app as follows:
 ------------------------------------------
@@ -201,21 +208,14 @@ Deploying the app on Heroku:
 ============================
 * Sign up for a free account on Heroku
 * Refer to https://devcenter.heroku.com/articles/rails3
+* Precompile assets locally to avoid hassles due to untimely initializations in heroku.
+See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
 
-heroku login
-
-#Precompile assets locally to avoid hassles due to untimely initializations in heroku 
-# see https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
-RAILS_ENV=production bundle exec rake assets:precompile
-
-git init
-
-git add .
-
-git commit -m "init"
-
-heroku create demo8jun --stack cedar
-
-git push heroku master
+`RAILS_ENV=production bundle exec rake assets:precompile`
+`git init`
+`git add .`
+`git commit -m "init"`
+`heroku create <your_app_name> --stack cedar`
+`git push heroku master`
 
 
