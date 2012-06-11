@@ -157,10 +157,12 @@ In `site.rb`:
     has_many :attendances
 
 In `customer.rb`:
+
     has_many :sites
     has_many :users
 
 In `attendance.rb`:
+
     belongs_to :supervisor, :class_name => 'User'
     belongs_to :site
     belongs_to :customer
@@ -168,9 +170,11 @@ In `attendance.rb`:
 4. Add the login/logout links:
 ------------------------------
 In `config/initializers/devise.rb` - 
+
     config.sign_out_via = :get
 
 In `views/layouts/application.html.erb`, just under &lt;body&gt; add:
+
     &lt;ul class="hmenu">
       &lt;%= render 'devise/menu/registration_items' %>
       &lt;%= render 'devise/menu/login_items' %>
@@ -214,16 +218,11 @@ Deploying the app on Heroku:
 * Precompile assets locally to avoid hassles due to untimely initializations in heroku.
 See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
 
-`RAILS_ENV=production bundle exec rake assets:precompile`
-
-`git init`
-
-`git add .`
-
-`git commit -m "init"`
-
-`heroku create <your_app_name> --stack cedar`
-
-`git push heroku master`
+    RAILS_ENV=production bundle exec rake assets:precompile
+    git init
+    git add .
+    git commit -m "init"
+    heroku create <your_app_name> --stack cedar
+    git push heroku master
 
 
