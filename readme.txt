@@ -1,4 +1,4 @@
-Get a jumpstart on that ROR app. From an ER diagram to a Heroku deployed app in &lt; 1 hr.What is this?
+What is this?
 =============
 A skeleton rails app that uses a number of gems and works 
 out-of-the-box, on your local machine and on Heroku.

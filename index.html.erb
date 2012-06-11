@@ -1,0 +1,19 @@
+<div id="flash">
+  <% if flash[:error] -%>
+    <p class='error'><%=h flash[:error] %></p>
+  <% end -%>
+  <% if flash[:notice] -%>
+    <p class='notice'><%=h flash[:notice] %></p>
+  <% end -%>
+</div>
+
+<%= link_to "Customers", :controller => "customers" %>
+<br/>
+<%= link_to "Users", :controller => "users" %>
+<br/>
+<%= link_to "Roles", :controller => "roles" %>
+<br/>
+<%= link_to "Sites", :controller => "sites" %>
+<br/>
+<%= link_to "Attendance", :controller => "attendances" %>
+<br/>
