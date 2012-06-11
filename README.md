@@ -175,10 +175,10 @@ In `config/initializers/devise.rb` -
 
 In `views/layouts/application.html.erb`, just under &lt;body&gt; add:
 
-    &lt;ul class="hmenu">
-      &lt;%= render 'devise/menu/registration_items' %>
-      &lt;%= render 'devise/menu/login_items' %>
-    &lt;/ul>
+    <ul class="hmenu">
+      <%= render 'devise/menu/registration_items' %>
+      <%= render 'devise/menu/login_items' %>
+    </ul>
 
 5. Set up the test (seed) data
 ------------------------------
@@ -216,7 +216,9 @@ Deploying the app on Heroku:
 * Sign up for a free account on Heroku
 * Refer to https://devcenter.heroku.com/articles/rails3
 * Precompile assets locally to avoid hassles due to untimely initializations in heroku.
+
 See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
+for details related to asset pipeline and heroku.
 
     RAILS_ENV=production bundle exec rake assets:precompile
     git init
@@ -225,4 +227,5 @@ See https://devcenter.heroku.com/articles/rails3x-asset-pipeline-cedar
     heroku create <your_app_name> --stack cedar
     git push heroku master
 
-
+That's it! Now your app should be live at
+http://<your_app_name>.herokuapp.com
