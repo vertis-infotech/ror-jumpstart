@@ -18,7 +18,7 @@ requiring some or all of the following:
 * Access controls over domain objects.
 * Deployment to a cloud based environment.
 
-All of the above are solved problems and numorous great solutions exist
+All of the above are solved problems and numerous great solutions exist
 for each. This is especially true in the RoR world where you can readily
 map these requirements to known "gems" capturing best practices:
 
