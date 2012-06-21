@@ -63,6 +63,9 @@ OS: Mac OS X 10.7.4
 bundler: 1.1.4
 database: SQLite
 
+### For Windows users:
+Check out the windows fork at https://github.com/budh-ram/ror-jumpstart
+
 However, it should be quite easy to follow the set up in other
 environments.
 If you git it to work in your environment, please "fork this" 
